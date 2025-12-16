@@ -14,7 +14,7 @@ import {
   getLanguageStats,
 } from "../utils/dataProcessing";
 import { ActivityTimeline } from "../component/activity";
-import { exportService } from '../services/exportService';
+import { exportServiceEnhanced } from '../services/exportServiceEnhanced.jsx';
 import toast from 'react-hot-toast';
 import { FiDownload } from "react-icons/fi";
 
@@ -42,9 +42,9 @@ export const ProfilePage = () => {
   const languageStats = repos ? getLanguageStats(repos) : [];
   const topRepos = repos ? getTopRepos(repos) : [];
 
-  const handleExportPDF = () => {
+  const handleExportPDF = async () => {
     try {
-      exportService.exportAsPDF(user, repos || [], `${user.login}-profile.pdf`);
+      await exportServiceEnhanced.exportAsPDFReact(user, repos || [], events || [], `${user.login}-profile.pdf`);
       toast.success("Profile exported as PDF!");
     } catch (error) {
       toast.error("Failed to export PDF");
@@ -53,8 +53,7 @@ export const ProfilePage = () => {
 
   const handleExportJSON = () => {
     try {
-      const data = { user, repos, stats: { totalStars, totalForks } };
-      exportService.exportAsJSON(data, `${user.login}-profile.json`);
+      exportServiceEnhanced.exportAsJSON(user, repos || [], events || [], `${user.login}-profile.json`);
       toast.success("Profile exported as JSON!");
     } catch (error) {
       toast.error("Failed to export JSON");
