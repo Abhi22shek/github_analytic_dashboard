@@ -9,11 +9,13 @@ import {
   FollowersPage,
   NotFound,
 } from "./pages";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
     <div className="bg-background text-foreground">
       <Layout>
+        <Toaster position="top-right" reverseOrder={false} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile/:username" element={<ProfilePage />} />

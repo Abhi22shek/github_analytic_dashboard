@@ -69,7 +69,7 @@ export const LanguageChart = ({ data }) => {
       </div>
 
       {/* Chart */}
-      <ResponsiveContainer width="100%" height={viewType === 'pie' ? 300 : 400}>
+      <ResponsiveContainer width="100%" height={viewType === 'pie' ? 500 : 600}>
         {viewType === 'pie' ? (
           <PieChart>
             <Pie
@@ -78,7 +78,7 @@ export const LanguageChart = ({ data }) => {
               nameKey="name"
               cx="50%"
               cy="50%"
-              outerRadius={80}
+              outerRadius={150}
               label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
               labelLine={false}
             >
