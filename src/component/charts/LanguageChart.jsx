@@ -69,39 +69,49 @@ export const LanguageChart = ({ data }) => {
       </div>
 
       {/* Chart */}
-      <ResponsiveContainer width="100%" height={viewType === 'pie' ? 500 : 600}>
+      <div className="w-full overflow-x-auto">
         {viewType === 'pie' ? (
-          <PieChart>
-            <Pie
-              data={displayData}
-              dataKey="count"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              outerRadius={150}
-              label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-              labelLine={false}
-            >
-              {displayData.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={CHART_COLORS[index % CHART_COLORS.length]}
-                />
-              ))}
-            </Pie>
-            <Tooltip content={renderTooltip} />
-            <Legend wrapperStyle={{ paddingTop: '20px' }} />
-          </PieChart>
+          <ResponsiveContainer width="100%" height={400}>
+            <PieChart>
+              <Pie
+                data={displayData}
+                dataKey="count"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius={120}
+                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                labelLine={false}
+              >
+                {displayData.map((_, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={CHART_COLORS[index % CHART_COLORS.length]}
+                  />
+                ))}
+              </Pie>
+              <Tooltip content={renderTooltip} />
+              <Legend wrapperStyle={{ paddingTop: '20px' }} />
+            </PieChart>
+          </ResponsiveContainer>
         ) : (
-          <BarChart data={displayData} layout="vertical" margin={{ top: 5, right: 30, left: 150, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis type="number" />
-            <YAxis dataKey="name" type="category" width={140} tick={{ fontSize: 12 }} />
-            <Tooltip content={renderTooltip} />
-            <Bar dataKey="count" fill="#0969da" radius={[0, 8, 8, 0]} />
-          </BarChart>
+          <ResponsiveContainer width="100%" height={Math.max(400, displayData.length * 40)}>
+            <BarChart data={displayData} layout="vertical" margin={{ top: 5, right: 70, left: 20, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis type="number" />
+              <YAxis 
+                dataKey="name" 
+                type="category" 
+                width={95} 
+                tick={{ fontSize: 11 }}
+                interval={0}
+              />
+              <Tooltip content={renderTooltip} />
+              <Bar dataKey="count" fill="#0969da" radius={[0, 8, 8, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
         )}
-      </ResponsiveContainer>
+      </div>
 
       {/* Show All Button */}
       {hasMore && (
