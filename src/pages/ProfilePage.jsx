@@ -66,6 +66,7 @@ export const ProfilePage = () => {
         >
           <FiDownload className="w-4 h-4" />
           Export PDf
+          </Button>
       </div>
 
       <ProfileCard user={user} />
