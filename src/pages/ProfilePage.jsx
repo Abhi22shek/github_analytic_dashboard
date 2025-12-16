@@ -51,15 +51,6 @@ export const ProfilePage = () => {
     }
   };
 
-  const handleExportJSON = () => {
-    try {
-      exportServiceEnhanced.exportAsJSON(user, repos || [], events || [], `${user.login}-profile.json`);
-      toast.success("Profile exported as JSON!");
-    } catch (error) {
-      toast.error("Failed to export JSON");
-    }
-  };
-
   return (
     <div className="space-y-8">
       {/* Back Button */}
@@ -74,17 +65,7 @@ export const ProfilePage = () => {
           className="flex items-center gap-2"
         >
           <FiDownload className="w-4 h-4" />
-          Export PDF
-        </Button>
-        <Button
-          variant="secondary"
-          size="sm"
-          onClick={handleExportJSON}
-          className="flex items-center gap-2"
-        >
-          <FiDownload className="w-4 h-4" />
-          Export JSON
-        </Button>
+          Export PDf
       </div>
 
       <ProfileCard user={user} />
